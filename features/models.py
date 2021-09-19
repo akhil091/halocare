@@ -5,6 +5,7 @@ from PIL import Image
 from io import BytesIO
 from datetime import date
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from ckeditor.fields import RichTextField
 
 class Volunteer(models.Model):
     image = models.ImageField(upload_to="images_volunteer")
@@ -17,7 +18,7 @@ class Volunteer(models.Model):
 class Cause(models.Model):
     image = models.ImageField(upload_to="images_cause")
     title = models.CharField(max_length=5000)
-    text = models.TextField()
+    text =  RichTextField(blank=True,null=True)
     target = models.IntegerField()
     progress = models.CharField(max_length=50)
     pub_date = models.DateTimeField(default=now)
@@ -32,7 +33,7 @@ class Cause(models.Model):
 class Blog(models.Model):
     image = models.ImageField(upload_to="images_blog")
     title = models.CharField(max_length=500)
-    text = models.TextField()
+    text =  RichTextField(blank=True,null=True)
     date = models.DateField(auto_now=False, auto_now_add=False)
 
     def __str__(self):
@@ -74,7 +75,7 @@ class gallery(models.Model):
 
 class events(models.Model):
     title = models.CharField(max_length=1500,default="")
-    description = models.TextField(default="",null=True, blank=True)
+    description = RichTextField(blank=True,null=True)
     venue = models.CharField(max_length=1000,default="")
     eventdate = models.DateField()
     time = models.TimeField( default="", null=True, blank=True)
